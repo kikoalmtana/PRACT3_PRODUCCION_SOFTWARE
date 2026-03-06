@@ -7,25 +7,42 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.12]
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
       - name: Install dependencies
+        run: uv sync
 
       - name: Install ruff and mypy
+        run: uv pip install ruff mypy
 
       - name: Ruff format
+        run: ruff format --check .
 
       - name: Ruff linter
+        run: ruff check .
 
       - name: Mypy
+        run: mypy .
 
       - name: Unit tests
+        run: uv run pytest core/tests/unit/ -v
 
       - name: Integration tests
+        run: uv run pytest core/tests/integration/ -v
 
       - name: BDD tests
+        run: uv run behave core/tests/behaviour/
