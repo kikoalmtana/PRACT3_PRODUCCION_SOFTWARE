@@ -20,7 +20,7 @@ class InMemoryExpenseRepository(ExpenseRepository):
         :param expense_id:  La id del gasto
         :return: None
         """
-        
+
         for expense in self._expenses:
             if expense.id == expense_id:
                 self._expenses.remove(expense)

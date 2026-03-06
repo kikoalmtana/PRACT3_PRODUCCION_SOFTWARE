@@ -5,7 +5,7 @@ from core.expense import Expense
 from core.domain_error import (
     EmptyTitleError,
     InvalidAmountError,
-    InvalidExpenseDateError
+    InvalidExpenseDateError,
 )
 
 
@@ -38,11 +38,15 @@ def test_negative_amount_raises_error():
       manteniendo la integridad del dominio de gastos.
     - Revisar si esta restricción ya está implementada en la clase Expense.
     """
-    
+
     with pytest.raises(InvalidAmountError):
-        Expense(id=33, title="negative_amount", amount=-33, description="", expense_date=date.today())
-
-
+        Expense(
+            id=33,
+            title="negative_amount",
+            amount=-33,
+            description="",
+            expense_date=date.today(),
+        )
 
 
 def test_future_date_raises_error():
@@ -58,4 +62,10 @@ def test_future_date_raises_error():
     - Verificar si ya se encuentra implementada esta validación en la clase Expense.
     """
     with pytest.raises(InvalidExpenseDateError):
-        Expense(id=33, title="tomorrow's coffe", amount=33, description="", expense_date=(date.today() + timedelta(days=1) ))
+        Expense(
+            id=33,
+            title="tomorrow's coffe",
+            amount=33,
+            description="",
+            expense_date=(date.today() + timedelta(days=1)),
+        )

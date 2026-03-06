@@ -76,4 +76,4 @@ def test_get_by_id_returns_none_if_not_found():
 
     expense = repo.get_by_id(14)
 
-    assert expense == None
+    assert expense is None
