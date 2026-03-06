@@ -30,19 +30,19 @@ jobs:
         run: uv pip install ruff mypy
 
       - name: Ruff format
-        run: ruff format --check .
+        run: uv ruff format --check .
 
       - name: Ruff linter
-        run: ruff check .
+        run: uv ruff check .
 
       - name: Mypy
-        run: mypy .
+        run: uv mypy .
 
       - name: Unit tests
-        run: uv run pytest core/tests/unit/ -v
+        run: uv run pytest ../core/tests/unit
 
       - name: Integration tests
-        run: uv run pytest core/tests/integration/ -v
+        run: uv run pytest ../core/tests/integration
 
       - name: BDD tests
-        run: uv run behave core/tests/behaviour/
+        run: uv run pytest ../core/tests/behaviour
