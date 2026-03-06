@@ -39,6 +39,11 @@ def remove_expense(context, expense_id):
     context["service"].remove_expense(expense_id)
 
 
+@when(parsers.parse("actualizo el monto de un gasto con id {expense_id:d} a {amount:d}"))
+def update_amount_expense(context, expense_id, amount):
+    context["service"].update_expense(expense_id, None, amount, None)
+    
+
 @then(parsers.parse("el total de dinero gastado debe ser {total:d} euros"))
 def check_total(context, total):
     assert context["service"].total_amount() == total
@@ -48,6 +53,10 @@ def check_total(context, total):
 def check_month_total(context, month_name, expected_total):
     total_actual = context["totals"].get(month_name, 0)
     assert total_actual == expected_total
+
+@then(parsers.parse("debe haber un gasto de nombre {title}"))
+def check_title(context, title):
+    assert title in [expense.title for expense in context["service"].list_expenses()]
 
 
 @then(parsers.parse("debe haber {expenses:d} gastos registrados"))

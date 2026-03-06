@@ -47,3 +47,22 @@ Feature: Gestión de gastos
     And añado un gasto de 30 euros llamado Chaqueta
     And elimino el gasto con id 3
     Then el total de dinero gastado debe ser 40 euros
+
+  Scenario: Crear un gasto de 10 euros, actualizarlo a 15 y comprobar que el total gastado es 15
+    Given un gestor de gastos vacío
+    When añado un gasto de 10 euros llamado Camiseta
+    And actualizo el monto de un gasto con id 1 a 15
+    Then el total de dinero gastado debe ser 15 euros
+
+  Scenario: Crear 3 gastos de 10 euros, eliminar 1 y comprobar que deben haber 2 gastos
+    Given un gestor de gastos vacío
+    When añado un gasto de 10 euros llamado Camiseta
+    And añado un gasto de 10 euros llamado Pantalón
+    And añado un gasto de 10 euros llamado Clarinete
+    And elimino el gasto con id 2
+    Then debe haber 2 gastos registrados
+  
+  Scenario: Crear un gasto de título "Camiseta" y comprobar que se crea un gasto de título "Camiseta"
+    Given un gestor de gastos vacío
+    When añado un gasto de 10 euros llamado Camiseta
+    Then debe haber un gasto de nombre Camiseta
